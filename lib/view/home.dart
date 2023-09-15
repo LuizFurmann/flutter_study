@@ -43,24 +43,25 @@ class _HomePageState extends State<Home> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             if (!_isLoading) {
-              return index == 0
-                  ? MySearch(
-                hintText: 'Search',
-                onChanged: (searchText) {
-                  searchText = searchText.toLowerCase();
-                  setState(() {
-                    _charactersDisplay = _characters.where((u) {
-                      var nameLowerCase = u.name.toLowerCase();
-                      var nicknameLowerCase = u.nickname.toLowerCase();
-                      var portrayedLowerCase = u.portrayed.toLowerCase();
-                      return nameLowerCase.contains(searchText) ||
-                          nicknameLowerCase.contains(searchText) ||
-                          portrayedLowerCase.contains(searchText);
-                    }).toList();
-                  });
-                },
-              )
-                  : MyList(character: _charactersDisplay[index - 1]);
+              // searchBox();
+              // return index == 0
+                //   ? MySearch(
+                // hintText: 'Search',
+                // onChanged: (searchText) {
+                //   searchText = searchText.toLowerCase();
+                //   setState(() {
+                //     _charactersDisplay = _characters.where((u) {
+                //       var nameLowerCase = u.name.toLowerCase();
+                //       var nicknameLowerCase = u.nickname.toLowerCase();
+                //       var portrayedLowerCase = u.portrayed.toLowerCase();
+                //       return nameLowerCase.contains(searchText) ||
+                //           nicknameLowerCase.contains(searchText) ||
+                //           portrayedLowerCase.contains(searchText);
+                //     }).toList();
+                //   });
+                // },
+              // )
+                   return MyList(character: _charactersDisplay[index]);
             } else {
               return const MyLoading();
             }
@@ -72,36 +73,28 @@ class _HomePageState extends State<Home> {
   }
 }
 
-
-AppBar myAppbar() {
-  return AppBar(
-    backgroundColor: Colors.blueAccent,
-    title: Row(children: [Icon(Icons.menu, color: Colors.black, size: 30)]),
+Widget searchBox() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: const TextField(
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            maxWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: "Pesquisaar",
+          hintStyle: TextStyle(color: Colors.grey)),
+    ),
   );
 }
-
-// Widget searchBox() {
-//   return Container(
-//     padding: EdgeInsets.symmetric(horizontal: 15),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.circular(20),
-//     ),
-//     child: const TextField(
-//       decoration: InputDecoration(
-//           contentPadding: EdgeInsets.all(0),
-//           prefixIcon: Icon(
-//             Icons.search,
-//             color: Colors.black,
-//             size: 20,
-//           ),
-//           prefixIconConstraints: BoxConstraints(
-//             maxHeight: 20,
-//             maxWidth: 25,
-//           ),
-//           border: InputBorder.none,
-//           hintText: "Pesquisaar",
-//           hintStyle: TextStyle(color: Colors.grey)),
-//     ),
-//   );
-// }
