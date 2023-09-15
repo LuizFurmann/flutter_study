@@ -40,33 +40,49 @@ class _HomePageState extends State<Home> {
         title: const Text('Luiz Furmann'),
       ),
       body: SafeArea(
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            if (!_isLoading) {
-              return index == 0
-                  ? MySearch(
-                hintText: 'Search',
-                onChanged: (searchText) {
-                  searchText = searchText.toLowerCase();
-                  setState(() {
-                    _charactersDisplay = _characters.where((u) {
-                      var nameLowerCase = u.name.toLowerCase();
-                      var nicknameLowerCase = u.nickname.toLowerCase();
-                      var portrayedLowerCase = u.portrayed.toLowerCase();
-                      return nameLowerCase.contains(searchText) ||
-                          nicknameLowerCase.contains(searchText) ||
-                          portrayedLowerCase.contains(searchText);
-                    }).toList();
-                  });
-                },
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      onChanged: (searchText) {
+                        searchText = searchText.toLowerCase();
+                        setState(() {
+                          _charactersDisplay = _characters.where((u) {
+                            var nameLowerCase = u.name.toLowerCase();
+                            var nicknameLowerCase = u.nickname.toLowerCase();
+                            var portrayedLowerCase = u.portrayed.toLowerCase();
+                            return nameLowerCase.contains(searchText) ||
+                                nicknameLowerCase.contains(searchText) ||
+                                portrayedLowerCase.contains(searchText);
+                          }).toList();
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          labelText: "Search",
+                          hintText: "Search",
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _characters.length,
+                      itemBuilder: (context, index) {
+
+                      if (!_isLoading) {
+                      return MyList(character: _charactersDisplay[index]);
+                      }
+                       else {
+                    return const MyLoading();
+                    }
+                      },
+                    ),
+                  ),
+                ],
               )
-                  : MyList(character: _charactersDisplay[index - 1]);
-            } else {
-              return const MyLoading();
-            }
-          },
-          itemCount: _charactersDisplay.length + 1,
-        ),
       ),
     );
   }
@@ -80,28 +96,28 @@ AppBar myAppbar() {
   );
 }
 
-// Widget searchBox() {
-//   return Container(
-//     padding: EdgeInsets.symmetric(horizontal: 15),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.circular(20),
-//     ),
-//     child: const TextField(
-//       decoration: InputDecoration(
-//           contentPadding: EdgeInsets.all(0),
-//           prefixIcon: Icon(
-//             Icons.search,
-//             color: Colors.black,
-//             size: 20,
-//           ),
-//           prefixIconConstraints: BoxConstraints(
-//             maxHeight: 20,
-//             maxWidth: 25,
-//           ),
-//           border: InputBorder.none,
-//           hintText: "Pesquisaar",
-//           hintStyle: TextStyle(color: Colors.grey)),
-//     ),
-//   );
-// }
+Widget searchBox() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: const TextField(
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            maxWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: "Pesquisaar",
+          hintStyle: TextStyle(color: Colors.grey)),
+    ),
+  );
+}
