@@ -88,11 +88,29 @@ class _HomePageState extends State<Home> {
   }
 }
 
-
-AppBar myAppbar() {
-  return AppBar(
-    backgroundColor: Colors.blueAccent,
-    title: Row(children: [Icon(Icons.menu, color: Colors.black, size: 30)]),
+Widget searchBox() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: const TextField(
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            maxWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: "Pesquisaar",
+          hintStyle: TextStyle(color: Colors.grey)),
+    ),
   );
 }
 
@@ -120,4 +138,4 @@ Widget searchBox() {
           hintStyle: TextStyle(color: Colors.grey)),
     ),
   );
-}
+}cd0b52978a12eaa697455aba911c0ac1104d9
