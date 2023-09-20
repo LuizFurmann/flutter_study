@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/view/characterDetailsPage.dart';
 
 // Model
 import '../model/character.dart';
@@ -31,11 +32,11 @@ class MyList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) =>
-                          // CharacterDetailsPage(character: character)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CharacterDetailsPage(character: character)));
             },
           ),
           const Divider(
