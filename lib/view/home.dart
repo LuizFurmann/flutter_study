@@ -35,54 +35,87 @@ class _HomePageState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Luiz Furmann'),
-      ),
-      body: SafeArea(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      onChanged: (searchText) {
-                        searchText = searchText.toLowerCase();
-                        setState(() {
-                          _charactersDisplay = _characters.where((u) {
-                            var nameLowerCase = u.name.toLowerCase();
-                            var nicknameLowerCase = u.nickname.toLowerCase();
-                            var portrayedLowerCase = u.portrayed.toLowerCase();
-                            return nameLowerCase.contains(searchText) ||
-                                nicknameLowerCase.contains(searchText) ||
-                                portrayedLowerCase.contains(searchText);
-                          }).toList();
-                        });
-                      },
-                      decoration: const InputDecoration(
-                          labelText: "Search",
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-                    ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Smiple Tab Demo"),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: "First",
+              ),
+              Tab(
+                text: "Second",
+              ),
+              Tab(
+                text: "Third",
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Container(
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (searchText) {
+                      searchText = searchText.toLowerCase();
+                      setState(() {
+                        _charactersDisplay = _characters.where((u) {
+                          var nameLowerCase = u.name.toLowerCase();
+                          var nicknameLowerCase = u.nickname.toLowerCase();
+                          var portrayedLowerCase = u.portrayed.toLowerCase();
+                          return nameLowerCase.contains(searchText) ||
+                              nicknameLowerCase.contains(searchText) ||
+                              portrayedLowerCase.contains(searchText);
+                        }).toList();
+                      });
+                    },
+                    decoration: const InputDecoration(
+                        labelText: "Search",
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _characters.length,
-                      itemBuilder: (context, index) {
-
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _characters.length,
+                    itemBuilder: (context, index) {
                       if (!_isLoading) {
-                      return MyList(character: _charactersDisplay[index]);
+                        return MyList(character: _charactersDisplay[index]);
+                      } else {
+                        return const MyLoading();
                       }
-                       else {
-                    return const MyLoading();
-                    }
-                      },
-                    ),
+                    },
                   ),
-                ],
-              )
+                ),
+              ]),
+            ),
+            Container(
+              color: Colors.blueGrey,
+              child: const Center(
+                child: Text(
+                  "Second",
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.teal,
+              child: const Center(
+                child: Text(
+                  "Third",
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,29 +146,3 @@ Widget searchBox() {
     ),
   );
 }
-
-// Widget searchBox() {
-//   return Container(
-//     padding: EdgeInsets.symmetric(horizontal: 15),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.circular(20),
-//     ),
-//     child: const TextField(
-//       decoration: InputDecoration(
-//           contentPadding: EdgeInsets.all(0),
-//           prefixIcon: Icon(
-//             Icons.search,
-//             color: Colors.black,
-//             size: 20,
-//           ),
-//           prefixIconConstraints: BoxConstraints(
-//             maxHeight: 20,
-//             maxWidth: 25,
-//           ),
-//           border: InputBorder.none,
-//           hintText: "Pesquisaar",
-//           hintStyle: TextStyle(color: Colors.grey)),
-//     ),
-//   );
-// }
