@@ -1,6 +1,6 @@
 # flutter_study
 
-A new Flutter project.
+![Screenshot_20230927_110103](https://github.com/LuizFurmann/flutter_study/assets/72764480/7d38b395-b7f0-4551-a07a-26ad88207651)
 
 ## Getting Started
 
