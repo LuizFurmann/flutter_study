@@ -1,6 +1,9 @@
 # flutter_study
 
-![Screenshot_20230927_110103](https://github.com/LuizFurmann/flutter_study/assets/72764480/7d38b395-b7f0-4551-a07a-26ad88207651)
+
+div align="center"
+img src="[https://desblogada.files.wordpress.co...](https://github.com/LuizFurmann/flutter_study/assets/72764480/7d38b395-b7f0-4551-a07a-26ad88207651)" width="0px" /
+/div
 
 ## Getting Started
 
